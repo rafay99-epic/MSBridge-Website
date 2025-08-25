@@ -8,6 +8,7 @@ import Container from "./container";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Features" },
+  { href: "/posts", label: "Posts" },
   { href: "/technologies", label: "Technologies" },
   { href: "/versions", label: "Versions" },
   { href: "/privacy", label: "Privacy" },
