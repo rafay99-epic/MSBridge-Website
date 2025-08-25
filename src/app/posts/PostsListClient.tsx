@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { type Post } from "@/interfaces/post";
 import { PostPreview } from "@/app/_components/post-preview";
+import { HeroPost } from "@/app/_components/hero-post";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 type Props = {
@@ -35,6 +36,12 @@ export default function PostsListClient({ posts }: Props) {
       return hay.includes(q);
     });
   }, [posts, query]);
+
+  const sorted = useMemo(() => {
+    return [...filtered].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  }, [filtered]);
 
   return (
     <section>
@@ -72,21 +79,37 @@ export default function PostsListClient({ posts }: Props) {
         </div>
       </div>
 
-      {filtered.length === 0 ? (
+      {sorted.length === 0 ? (
         <p className="text-neutral-600 dark:text-slate-300">No posts found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-          {filtered.map((post) => (
-            <PostPreview
-              key={post.slug}
-              title={post.title}
-              coverImage={post.coverImage}
-              date={post.date}
-              author={post.author}
-              slug={post.slug}
-              excerpt={post.excerpt}
+        <div className="mb-32">
+          {/* Hero post */}
+          <div className="mb-16">
+            <HeroPost
+              title={sorted[0].title}
+              coverImage={sorted[0].coverImage}
+              date={sorted[0].date}
+              author={sorted[0].author}
+              slug={sorted[0].slug}
+              excerpt={sorted[0].excerpt}
             />
-          ))}
+          </div>
+          {/* Rest of posts */}
+          {sorted.length > 1 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32">
+              {sorted.slice(1).map((post) => (
+                <PostPreview
+                  key={post.slug}
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                  author={post.author}
+                  slug={post.slug}
+                  excerpt={post.excerpt}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </section>
