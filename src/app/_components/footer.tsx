@@ -57,6 +57,9 @@ export function Footer() {
           <p className="text-xs text-neutral-600 dark:text-slate-300">
             © {year} Syntax Lab Technology · MS Bridge
           </p>
+          <p className="text-xs text-neutral-600 dark:text-slate-300">
+            <a href="https://rafay99.com/contact-me" target="_blank" rel="noopener noreferrer" className="hover:underline">Made with ❤️ by Abdul Rafay</a>
+          </p>
           <div className="flex items-center gap-4 text-xs">
             <Link href="/privacy" className="hover:underline">Privacy</Link>
             <span className="text-neutral-400">•</span>

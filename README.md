@@ -1,72 +1,108 @@
-# A statically generated blog example using Next.js, Markdown, and TypeScript
+# MS Bridge – Website & Blog
 
-This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
+Next.js app with a blog, versions/release page, RSS feeds, dynamic sitemap, caching, and a modern neutral UI.
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) feature using Markdown files as the data source.
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+## Stack
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
+- Next.js 15
+- React 19 (React Compiler enabled)
+- TypeScript
+- Tailwind CSS 3
 
-## Demo
-
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
-
-### Related examples
-
-- [AgilityCMS](/examples/cms-agilitycms)
-- [Builder.io](/examples/cms-builder-io)
-- [ButterCMS](/examples/cms-buttercms)
-- [Contentful](/examples/cms-contentful)
-- [Cosmic](/examples/cms-cosmic)
-- [DatoCMS](/examples/cms-datocms)
-- [DotCMS](/examples/cms-dotcms)
-- [Drupal](/examples/cms-drupal)
-- [Enterspeed](/examples/cms-enterspeed)
-- [Ghost](/examples/cms-ghost)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent.ai](/examples/cms-kontent-ai)
-- [MakeSwift](/examples/cms-makeswift)
-- [Payload](/examples/cms-payload)
-- [Plasmic](/examples/cms-plasmic)
-- [Prepr](/examples/cms-prepr)
-- [Prismic](/examples/cms-prismic)
-- [Sanity](/examples/cms-sanity)
-- [Sitecore XM Cloud](/examples/cms-sitecore-xmcloud)
-- [Sitefinity](/examples/cms-sitefinity)
-- [Storyblok](/examples/cms-storyblok)
-- [TakeShape](/examples/cms-takeshape)
-- [Tina](/examples/cms-tina)
-- [Umbraco](/examples/cms-umbraco)
-- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
-- [Webiny](/examples/cms-webiny)
-- [WordPress](/examples/cms-wordpress)
-- [Blog Starter](/examples/blog-starter)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Getting started
 
 ```bash
-npx create-next-app --example blog-starter blog-starter-app
+npm install
+
+# dev
+npm run dev
+
+# build & start
+npm run build
+npm start
 ```
+
+Set your site origin for absolute URLs (RSS/Sitemap):
 
 ```bash
-yarn create next-app --example blog-starter blog-starter-app
+export NEXT_PUBLIC_SITE_URL="https://your-domain.com"
 ```
 
-```bash
-pnpm create next-app --example blog-starter blog-starter-app
+## Content
+
+- Blog posts live in `/_posts` as Markdown with front‑matter.
+- Add a new `my-post.md` and it appears automatically (sorted by `date`).
+
+## Releases page
+
+Releases are defined in `src/lib/versions.ts` and rendered at `/versions`. Latest release appears on top with a download button.
+
+## RSS feeds
+
+- Blog: `/feed.xml`
+- Releases: `/releases.xml`
+
+These are generated at request time and cached. Absolute links use `NEXT_PUBLIC_SITE_URL` (falls back to `http://localhost:3000`).
+
+## Sitemap
+
+Dynamic sitemap at `/sitemap.xml` including:
+
+- Static pages: Home, Features, Technologies, Versions, Privacy, Terms
+- All blog posts from `/_posts`
+- Versions page with `lastmod` from latest release
+
+## Caching
+
+Configured in `next.config.js`:
+
+- Long‑term HTTP caching for static assets
+- Image optimization with AVIF/WebP and 1‑day TTL
+- ISR revalidate every hour (see `src/app/layout.tsx`)
+
+## Favicons & icons
+
+- Favicon: `public/favicon/icon.ico`
+- App Icon: `public/assets/logo/icon.png`
+- Web Manifest: `public/favicon/site.webmanifest`
+
+## Verification (Google Search Console)
+
+Place the HTML verification file in `public/` (e.g., `public/googleXXXX.html`) and deploy. Keep the file after verification.
+
+## Project structure (high‑level)
+
+```text
+src/app
+  ├── (pages...)            # Route groups
+  ├── feed.xml/route.ts     # Blog RSS
+  ├── releases.xml/route.ts # Releases RSS
+  ├── sitemap.xml/route.ts  # Dynamic sitemap
+  └── _components           # UI components
+src/lib
+  ├── api.ts                # Posts loader
+  ├── versions.ts           # Releases data
+  └── constants.ts          # SITE_URL, etc.
+_posts                      # Markdown posts
+public                      # Static files (favicons, images)
 ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+## Notes
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- UI supports light/dark theme with a neutral palette.
+- React Compiler is enabled via `experimental.reactCompiler: true`.
 
-# Notes
+## Deployment
 
-`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+Deploy on any Next.js‑compatible host (Vercel recommended). Ensure `NEXT_PUBLIC_SITE_URL` is set in production.
+
+
+## Contact 
+If you have any question then free will to react out at rafay99.com/contact-me 
+
+or 
+
+Email me at [99marafay@gmail.com](mailto:99marafay@gmail.com)
+
+Website [rafay99.com](https://rafay99.com)
