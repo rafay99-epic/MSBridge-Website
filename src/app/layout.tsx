@@ -6,12 +6,16 @@ import cn from "classnames";
 import { ThemeSwitcher } from "./_components/theme-switcher";
 
 import "./globals.css";
+import Header from "./_components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Default ISR: revalidate static pages every 1 hour
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
-  title: `Next.js Blog Example with ${CMS_NAME}`,
-  description: `A statically generated blog example using Next.js and ${CMS_NAME}.`,
+  title: `MS Bridge`,
+  description: `The ultimate note reading and note-taking application, powered by AI, with a fully private, local-first option.`,
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
   },
@@ -60,6 +64,7 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
       >
+        <Header />
         <ThemeSwitcher />
         <div className="min-h-screen">{children}</div>
         <Footer />

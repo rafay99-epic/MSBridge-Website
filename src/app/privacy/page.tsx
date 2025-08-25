@@ -12,7 +12,6 @@ export default async function PrivacyPage() {
   return (
     <main>
       <Container>
-        <Header />
         <article className="mb-32">
           <PostTitle>{page?.title || "Privacy Policy"}</PostTitle>
           <PostBody content={content} />

@@ -28,6 +28,9 @@ export function Footer() {
               <li>
                 <Link href="/" className="hover:underline">Blog</Link>
               </li>
+              <li>
+                <Link href="/technologies" className="hover:underline">Technologies</Link>
+              </li>
             </ul>
           </div>
           <div>
@@ -58,6 +61,7 @@ export function Footer() {
             <Link href="/privacy" className="hover:underline">Privacy</Link>
             <span className="text-neutral-400">•</span>
             <Link href="/terms" className="hover:underline">Terms</Link>
+            
           </div>
         </div>
       </Container>

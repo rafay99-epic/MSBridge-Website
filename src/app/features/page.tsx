@@ -1,5 +1,4 @@
 import Container from "@/app/_components/container";
-import Header from "@/app/_components/header";
 import { PostTitle } from "@/app/_components/post-title";
 import { type ComponentType } from "react";
 
@@ -302,7 +301,6 @@ export default function FeaturesPage() {
   return (
     <main>
       <Container>
-        <Header />
         <article className="mb-24">
           <PostTitle>Features</PostTitle>
           <p className="max-w-2xl text-neutral-600 dark:text-slate-300 leading-7 mb-10">
