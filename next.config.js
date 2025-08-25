@@ -35,15 +35,7 @@ const nextConfig = {
         reactCompiler: true,
     },
     transpilePackages: ['swiper'],
-    webpack: (config, {
-        isServer
-    }) => {
-        config.resolve.alias = {
-            ...config.resolve.alias,
-            react: require.resolve('react'),
-            'react-dom': require.resolve('react-dom'),
-        };
-
+    webpack: (config) => {
         return config;
     },
 };
