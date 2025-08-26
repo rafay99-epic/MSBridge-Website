@@ -6,27 +6,10 @@ import SwiperWrapper from "./_components/swiper-wrapper";
 import FeaturesPage from "./_components/landing/feature";
 import { MoreStories } from "@/app/_components/more-stories";
 import { getAllPosts } from "@/lib/api";
-import { HeroPost } from "./_components/hero-post";
-
+import { phoneSets } from "@/lib/constants";
 const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400" });
 
-const phoneSets = [
-  {
-    center: "/assets/mobile_layout/welcome_to_ms_bridge.png",
-    left: "/assets/mobile_layout/welcome_to_ms_2.png",
-    right: "/assets/mobile_layout/login.png",
-  },
-  {
-    center: "/assets/mobile_layout/dashboard.png",
-    left: "/assets/mobile_layout/settings.png",
-    right: "/assets/mobile_layout/profile.png",
-  },
-  {
-    center: "/assets/mobile_layout/notes.png",
-    left: "/assets/mobile_layout/chat.png",
-    right: "/assets/mobile_layout/ai.png",
-  },
-];
+
 
 export default function Index() {
   const allPosts = getAllPosts();

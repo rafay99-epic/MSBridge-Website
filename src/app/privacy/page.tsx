@@ -1,5 +1,4 @@
 import Container from "@/app/_components/container";
-import Header from "@/app/_components/header";
 import { PostBody } from "@/app/_components/post-body";
 import { PostTitle } from "@/app/_components/post-title";
 import markdownToHtml from "@/lib/markdownToHtml";
