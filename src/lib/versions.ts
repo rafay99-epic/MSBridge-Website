@@ -1,4 +1,3 @@
-};
 import { AppVersion } from "@/interfaces/version";
 import { versions } from "@/lib/constants";
 
