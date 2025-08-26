@@ -7,11 +7,12 @@ import { ThemeSwitcher } from "./_components/theme-switcher";
 
 import "./globals.css";
 import Header from "./_components/header";
+import CacheRefresher from "./_components/CacheRefresher";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Default ISR: revalidate static pages every 1 hour
-export const revalidate = 3600;
+// Prefer dynamic render for fresh deployments; individual routes can opt-in to ISR
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: `MS Bridge`,
@@ -46,6 +47,7 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
       >
+        <CacheRefresher />
         <Header />
         <ThemeSwitcher />
         <div className="min-h-screen">{children}</div>

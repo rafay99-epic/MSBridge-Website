@@ -13,7 +13,7 @@ import {
   Wrench,
 } from "lucide-react";
 
-export const CATEGORY_META: Record<string, { icon: ComponentType<any>; wrapperClass: string; iconClass: string }> = {
+const CATEGORY_META: Record<string, { icon: ComponentType<any>; wrapperClass: string; iconClass: string }> = {
   "Notes": {
     icon: FileText,
     wrapperClass: "from-indigo-500/10 to-purple-500/10",
