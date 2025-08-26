@@ -1,6 +1,5 @@
 import { Great_Vibes } from "next/font/google";
 import Container from "./_components/container";
-import Image from "next/image";
 
 import SwiperWrapper from "./_components/swiper-wrapper";
 import FeaturesPage from "./_components/landing/feature";

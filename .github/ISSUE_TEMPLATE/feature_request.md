@@ -1,20 +1,43 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
+name: Feature Request
+about: Suggest a new idea or enhancement for MS Bridge
+title: "[Feature]: "
+labels: enhancement
 assignees: ''
+---
+
+## Summary
+Briefly describe the feature or improvement you’d like to see.
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Problem Statement
+Is your feature request related to a problem?  
+Please describe clearly.  
+Example: *"I often struggle to organize my notes by tags, and it slows down my workflow."*
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+---
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Proposed Solution
+Describe the solution you’d like.  
+Be as specific as possible.  
+Example: *"Add a tag management screen where users can create, edit, and delete tags."*
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+---
+
+## Alternatives Considered
+Have you thought of other ways to solve this problem?  
+List any alternative solutions or features you’ve considered.
+
+---
+
+## Benefits / Impact
+- Who will this feature help?  
+- How will it improve the app?  
+- Is it a must-have or a nice-to-have?
+
+---
+
+## Additional Context
+Add any other context, references, or screenshots here.  
+If you have mockups, diagrams, or links to similar apps, include them.

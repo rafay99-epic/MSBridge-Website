@@ -110,6 +110,17 @@ export const versions: AppVersion[] = [
 ];
 
 
+type Feature = {
+  title: string;
+  description: string;
+  badge?: string;
+};
+
+type FeatureCategory = {
+  name: string;
+  features: Feature[];
+};
+
 export const FEATURE_CATEGORIES: FeatureCategory[] = [
   {
     name: "Notes",

@@ -1,7 +1,7 @@
 import Container from "@/app/_components/container";
 import { PostTitle } from "@/app/_components/post-title";
 import { FEATURE_CATEGORIES } from "@/lib/constants";
-import { type ComponentType } from "react";
+import { type LucideIcon } from "lucide-react";
 import {
   FileText,
   Sparkles,
@@ -13,7 +13,19 @@ import {
   Wrench,
 } from "lucide-react";
 
-const CATEGORY_META: Record<string, { icon: ComponentType<any>; wrapperClass: string; iconClass: string }> = {
+// Define types inline since they're not exported from interfaces
+type Feature = {
+  title: string;
+  description: string;
+  badge?: string;
+};
+
+type FeatureCategory = {
+  name: string;
+  features: Feature[];
+};
+
+const CATEGORY_META: Record<string, { icon: LucideIcon; wrapperClass: string; iconClass: string }> = {
   "Notes": {
     icon: FileText,
     wrapperClass: "from-indigo-500/10 to-purple-500/10",
@@ -92,7 +104,7 @@ function FeatureCategorySection(props: FeatureCategorySectionProps) {
         <h2 className="text-xl md:text-2xl font-bold tracking-tight">{category.name}</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {category.features.map((f) => (
+        {category.features.map((f: Feature) => (
           <FeatureCard key={`${category.name}-${f.title}`} feature={f} />
         ))}
       </div>

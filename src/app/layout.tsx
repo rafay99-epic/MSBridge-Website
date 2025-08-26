@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: `MS Bridge`,
+  title: CMS_NAME,
   description: `The ultimate note reading and note-taking application, powered by AI, with a fully private, local-first option.`,
   openGraph: {
     images: [HOME_OG_IMAGE_URL],

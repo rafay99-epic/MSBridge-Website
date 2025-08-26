@@ -1,0 +1,26 @@
+name: Broken Link Checker
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 0" # runs weekly on Sunday at midnight UTC
+  workflow_dispatch: # allow manual runs
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Lychee Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          # Scan all files in the repo
+          args: --verbose --no-progress --exclude-mail ./ 
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
