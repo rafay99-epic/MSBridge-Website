@@ -8,12 +8,13 @@ export const HOME_OG_IMAGE_URL =
   "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
-
+export const Stable_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-stable.apk`;
+export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
   {
     version: "7.5.0",
-    buildNumber: 750,
+    buildNumber: 12,
     releaseDate: "2025-08-26",
     changelog:
       "Settings sync, note templates, advanced search, background sync controls, markdown & diagram rendering, redesigned note UI, cloud-first streak refresh, major dependency and Flutter upgrade",
@@ -21,7 +22,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "7.4.0",
-    buildNumber: 740,
+    buildNumber: 11,
     releaseDate: "2025-08-20",
     changelog:
       "Major UI/UX overhaul: redesigned app info, contact page, authentication screens, splash screen, custom text fields, theme system integration, accessibility and performance improvements",
@@ -29,7 +30,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "7.3.0",
-    buildNumber: 730,
+    buildNumber: 10,
     releaseDate: "2025-08-19",
     changelog:
       "Full version history with diffs, restore/download, cleanup, cloud sync for versions, conflict resolution, streak sync, modernized error experience, Crashlytics logging improvements",
@@ -37,7 +38,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "7.2.0",
-    buildNumber: 720,
+    buildNumber: 9,
     releaseDate: "2025-08-10",
     changelog:
       "Streak system with reminders and notifications, searchable modular settings UI, quick actions, profile header, reusable bottom sheets, notification integration, logout dialog redesign",
@@ -45,7 +46,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "7.1.0",
-    buildNumber: 710,
+    buildNumber: 8,
     releaseDate: "2025-08-05",
     changelog:
       "Chat history with save/load/clear, About Author page, appearance settings, PIN settings bottom sheet, AI chat model persistence, improved AI summaries, backup/export improvements, performance optimizations",
@@ -53,7 +54,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "7.0.0",
-    buildNumber: 700,
+    buildNumber: 7,
     releaseDate: "2025-08-01",
     changelog:
       "AI chat assistant, shareable view-only links, dynamic link handling, note tagging and folders, shared notes management, backup export/import, auto-sync scheduler, PIN lock, profile editing, dynamic themes, redesigned core screens",
@@ -61,7 +62,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "6.0.0",
-    buildNumber: 600,
+    buildNumber: 6,
     releaseDate: "2025-07-20",
     changelog:
       "Fingerprint and Face ID authentication, in-app updates, update management UI, feature-flagged auto-save, refined note-taking and to-do UI, improved error handling, build and deployment automation",
@@ -69,7 +70,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "5.0.0",
-    buildNumber: 500,
+    buildNumber: 5,
     releaseDate: "2025-07-10",
     changelog:
       "AI-powered note summarization, bottom sheet summaries with typing effect, AI model selection, auto-save, improved CreateNote with AI integration, app info page, dependency upgrades",
@@ -77,7 +78,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "4.0.0",
-    buildNumber: 400,
+    buildNumber: 4,
     releaseDate: "2025-07-01",
     changelog:
       "Export notes to PDF/Markdown, task management screens, expandable action button, privacy policy and terms pages, bug report/feature request templates, improved media/storage access",
@@ -85,7 +86,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "3.0.0",
-    buildNumber: 300,
+    buildNumber: 3,
     releaseDate: "2025-06-20",
     changelog:
       "Recycle bin for deleted notes, notes settings section, connectivity provider, pull-to-refresh, improved note formatting, error handling, settings layout simplification",
@@ -93,7 +94,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "2.0.0",
-    buildNumber: 200,
+    buildNumber: 2,
     releaseDate: "2025-06-10",
     changelog:
       "Customizable settings tiles, animated splash screen with intro pages, CreateNote widget with rich text, NoteList widget, connectivity and admin settings, improved error handling and UI consistency",
@@ -101,7 +102,7 @@ export const versions: AppVersion[] = [
   },
   {
     version: "1.0.0",
-    buildNumber: 100,
+    buildNumber: 1,
     releaseDate: "2025-05-01",
     changelog:
       "Initial release with splash screen, user registration, forgot password, settings, delete account, logout, app info, home, search, tags, danger screen, change password, contact us, Firebase auth, notes API, Hive local DB, auth gate, internet service, CMS web view",

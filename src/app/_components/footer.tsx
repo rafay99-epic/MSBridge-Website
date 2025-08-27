@@ -37,12 +37,12 @@ export function Footer() {
             <h4 className="text-sm font-semibold tracking-wide text-neutral-900 dark:text-slate-100">Resources</h4>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <a href="https://rafay99.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <a href="/versions" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   Download APK
                 </a>
               </li>
               <li>
-                <Link href="/releases" className="hover:underline">Releases</Link>
+                <Link href="/posts" className="hover:underline">Blog </Link>
               </li>
               <li>
                 <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
