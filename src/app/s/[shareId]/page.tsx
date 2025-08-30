@@ -4,45 +4,97 @@ import { useEffect, useState } from 'react';
 import Container from "@/app/_components/container";
 import { PostTitle } from "@/app/_components/post-title";
 import Link from "next/link";
-
+import { QuillDeltaToHtmlConverter, DeltaInsertOp } from 'quill-delta-to-html';
 
 
 function deltaToHtml(content: string) {
   try {
     const json = JSON.parse(content);
-    let ops: QuillOp[] | null = null;
+    let ops = null;
     if (Array.isArray(json)) {
       ops = json;
     } else if (json && Array.isArray(json.ops)) {
       ops = json.ops;
     }
+    
     if (ops) {
-      // Simple conversion for Quill Delta to HTML
-      let html = '';
-      ops.forEach((op: QuillOp) => {
-        if (op.insert) {
-          if (typeof op.insert === 'string') {
-            let text = op.insert;
-            if (op.attributes) {
-              if (op.attributes.bold) text = `<strong>${text}</strong>`;
-              if (op.attributes.italic) text = `<em>${text}</em>`;
-              if (op.attributes.underline) text = `<u>${text}</u>`;
-              if (op.attributes.link) text = `<a href="${op.attributes.link}" target="_blank" rel="noopener noreferrer">${text}</a>`;
-              if (op.attributes['code-block']) text = `<pre><code>${text}</code></pre>`;
-              else if (op.attributes.code) text = `<code>${text}</code>`;
+      // Use the quill-delta-to-html package
+      const converter = new QuillDeltaToHtmlConverter(ops, {
+        paragraphTag: 'p',
+        encodeHtml: true,
+        multiLineBlockquote: true,
+        multiLineCodeblock: true,
+        listItemTag: 'li',
+        linkTarget: '_blank',
+
+
+        // Custom CSS classes for different elements
+        customCssClasses: (op: DeltaInsertOp) => {
+          const classes: string[] = [];
+          
+          if (op.attributes) {
+            // Headers
+            if (op.attributes.header) {
+              classes.push('font-bold', 'mb-4', 'mt-6', 'first:mt-0');
             }
-            html += text;
+            
+            // Lists
+            if (op.attributes.list) {
+              if (op.attributes.list === 'bullet') {
+                classes.push('mb-1');
+              } else if (op.attributes.list === 'ordered') {
+                classes.push('mb-1');
+              }
+            }
+            
+            // Inline code
+            if (op.attributes.code) {
+              classes.push('bg-neutral-100', 'dark:bg-slate-800', 'px-2', 'py-1', 'rounded', 'text-sm');
+            }
+            
+            // Links
+            if (op.attributes.link) {
+              classes.push('text-blue-600', 'dark:text-blue-400', 'hover:underline');
+            }
           }
+          
+          return classes;
         }
       });
-      return html || '<p>No content</p>';
+      
+      let html = converter.convert();
+      
+      // Post-process the HTML to add our custom styling
+      html = html
+        // Add classes to paragraphs
+        .replace(/<p>/g, '<p class="mb-4 leading-relaxed">')
+        // Add classes to lists
+        .replace(/<ul>/g, '<ul class="list-disc space-y-1 mb-4 pl-5">')
+        .replace(/<ol>/g, '<ol class="list-decimal space-y-1 mb-4 pl-5">')
+        // Add classes to headers - make them bigger and more prominent
+        .replace(/<h1>/g, '<h1 class="text-4xl font-bold mb-6 mt-8 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        .replace(/<h2>/g, '<h2 class="text-3xl font-bold mb-5 mt-7 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        .replace(/<h3>/g, '<h3 class="text-2xl font-bold mb-4 mt-6 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        .replace(/<h4>/g, '<h4 class="text-xl font-bold mb-4 mt-6 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        .replace(/<h5>/g, '<h5 class="text-lg font-bold mb-4 mt-6 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        .replace(/<h6>/g, '<h6 class="text-base font-bold mb-4 mt-6 first:mt-0 text-neutral-900 dark:text-slate-100">')
+        // Add classes to blockquotes
+        .replace(/<blockquote>/g, '<blockquote class="border-l-4 border-neutral-300 dark:border-slate-600 pl-4 py-2 mb-4 italic text-neutral-700 dark:text-neutral-300">')
+        // Add classes to code blocks
+        .replace(/<pre>/g, '<pre class="bg-neutral-100 dark:bg-slate-800 p-4 rounded-lg overflow-x-auto mb-4">')
+        // Add classes to inline code
+        .replace(/<code>/g, '<code class="bg-neutral-100 dark:bg-slate-800 px-2 py-1 rounded text-sm">');
+      
+      return html || '<p class="text-neutral-500 dark:text-neutral-400">No content available</p>';
     }
   } catch (e) {
-    console.error(e);
-    return `<p>${content.replace(/\n/g, '<br/>')}</p>`;
+    console.error('Error parsing content:', e);
+    // Fallback: treat as plain text with basic formatting
+    return `<p class="mb-4 leading-relaxed">${content.replace(/\n/g, '</p><p class="mb-4 leading-relaxed">')}</p>`;
   }
-  // Fallback: treat as plain text with basic escaping
-  return `<p>${content.replace(/\n/g, '<br/>')}</p>`;
+  
+  // Fallback for non-JSON content
+  return `<p class="mb-4 leading-relaxed">${content.replace(/\n/g, '</p><p class="mb-4 leading-relaxed">')}</p>`;
 }
 
 
@@ -52,17 +104,7 @@ interface NoteData {
     updatedAt: number;
   }
   
-  interface QuillOp {
-    insert: string;
-    attributes?: {
-      bold?: boolean;
-      italic?: boolean;
-      underline?: boolean;
-      link?: string;
-      'code-block'?: boolean;
-      code?: boolean;
-    };
-  }
+
 export default function SharedNotePage({ params }: { params: Promise<{ shareId: string }> }) {
   const [note, setNote] = useState<NoteData | null>(null);
   const [loading, setLoading] = useState(true);

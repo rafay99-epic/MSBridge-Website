@@ -5,13 +5,21 @@ import { AppVersion } from "@/interfaces/version";
 export const EXAMPLE_PATH = "MS Bridge";
 export const CMS_NAME = "MS Bridge";
 export const HOME_OG_IMAGE_URL =
-  "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
+  "/assets/blog/org/msbridge.png";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const Stable_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-stable.apk`;
 export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
+  {
+    version: "7.6.0",
+    buildNumber: 13,
+    releaseDate: "2025-08-30",
+    changelog:
+      "AI image upload, chat history, streak notifications, PIN lock sync, email verification, advanced search tools, performance improvements, security enhancements",
+    downloadUrl: "/downloads/ms-bridge-7.6.0.apk",
+  },
   {
     version: "7.5.0",
     buildNumber: 12,
