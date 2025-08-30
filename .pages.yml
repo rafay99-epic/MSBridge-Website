@@ -1,0 +1,100 @@
+media:
+  - name: blog-images
+    label: Blog Images
+    input: public/assets/blog/post
+    output: /assets/blog/post
+    categories: [image]
+    extensions: [webp, png, jpg, jpeg]
+  - name: author-images
+    label: Author Images
+    input: public/assets/blog/authors
+    output: /assets/blog/authors
+    categories: [image]
+    extensions: [webp, png, jpg, jpeg]
+  - name: org-images
+    label: Organization Images
+    input: public/assets/blog/org
+    output: /assets/blog/org
+    categories: [image]
+    extensions: [webp, png, jpg, jpeg]
+
+content:
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: _posts
+    format: yaml-frontmatter
+    filename: "{date}-{title}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: excerpt
+        label: Excerpt
+        type: text
+        required: true
+      - name: coverImage
+        label: Cover Image
+        type: image
+        required: true
+        options:
+          media: blog-images
+      - name: date
+        label: Publication Date
+        type: date
+        required: true
+      - name: author
+        label: Author
+        type: object
+        fields:
+          - name: name
+            label: Author Name
+            type: string
+            required: true
+          - name: picture
+            label: Author Picture
+            type: image
+            required: true
+            options:
+              media: author-images
+      - name: ogImage
+        label: Open Graph Image
+        type: object
+        fields:
+          - name: url
+            label: OG Image URL
+            type: image
+            required: true
+            options:
+              media: org-images
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+    view:
+      fields: [title, date, author.name, excerpt]
+      primary: title
+      sort: [date, title]
+      defaultSort: date
+      defaultOrder: desc
+
+components:
+  author:
+    label: Author
+    type: object
+    fields:
+      - name: name
+        label: Author Name
+        type: string
+        required: true
+      - name: picture
+        label: Author Picture
+        type: image
+        required: true
+        options:
+          media: author-images
+
+settings:
+  content:
+    merge: true
