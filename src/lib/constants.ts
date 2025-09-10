@@ -13,6 +13,14 @@ export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
   {
+    version: "7.8.0",
+    buildNumber: 15,
+    releaseDate: "2025-09-10",
+    changelog:
+      "Faster, safer, smoother, PIN lock overhaul, enhanced security, improved app lifecycle management, logic separation, and development process improvements",
+    downloadUrl: "/downloads/ms-bridge-7.8.0.apk",
+  },
+  {
     version: "7.7.0",
     buildNumber: 14,
     releaseDate: "2025-08-30",
