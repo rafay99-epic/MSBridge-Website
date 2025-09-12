@@ -13,6 +13,14 @@ export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
   {
+    version: "7.9.0",
+    buildNumber: 16,
+    releaseDate: "2025-09-12",
+    changelog:
+      "Defines your note-taking flow with a refreshed UI, smarter file exports, and improved stability. From streamlined permissions to Markdown/PDF filename sanitization, plus a simpler notes experience without pin clutter—this release makes the app smoother and more reliable than ever.",
+    downloadUrl: "/downloads/ms-bridge-7.9.0.apk",
+  },
+  {
     version: "7.8.0",
     buildNumber: 15,
     releaseDate: "2025-09-10",
