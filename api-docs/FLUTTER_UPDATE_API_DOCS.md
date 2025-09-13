@@ -58,6 +58,20 @@ https://your-domain.com/api
 }
 ```
 
+## 🔒 **Security Setup**
+
+### Environment Variable
+Create `.env.local` file in your project root:
+```bash
+MS_BRIDGE_API_KEY=your-super-secret-api-key-here-make-it-long-and-random
+```
+
+Generate a secure API key:
+```bash
+# Generate a secure API key
+openssl rand -hex 32
+```
+
 ## Flutter Implementation
 
 ### 1. Dependencies
@@ -81,13 +95,17 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class UpdateService {
   static const String _baseUrl = 'https://your-domain.com/api';
+  static const String _apiKey = 'your-super-secret-api-key-here'; // Store securely
   
   /// Check if the system is live
   static Future<bool> isSystemLive() async {
     try {
       final response = await http.get(
         Uri.parse('$_baseUrl/health'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': _apiKey, // Add API key to headers
+        },
       ).timeout(const Duration(seconds: 10));
       
       return response.statusCode == 200;
@@ -107,7 +125,10 @@ class UpdateService {
       
       final response = await http.post(
         Uri.parse('$_baseUrl/update-check'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': _apiKey, // Add API key to headers
+        },
         body: json.encode({
           'version': currentVersion,
           'buildNumber': buildNumber,
@@ -117,6 +138,8 @@ class UpdateService {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return UpdateCheckResult.fromJson(data);
+      } else if (response.statusCode == 401) {
+        return UpdateCheckResult.error('Invalid API key');
       } else {
         throw Exception('Failed to check for updates: ${response.statusCode}');
       }
