@@ -8,6 +8,7 @@ import {
     ArrowPathIcon,
     WrenchScrewdriverIcon,
   } from "@heroicons/react/24/outline";
+import { MicIcon } from "lucide-react";
   
   const features = [
     {
@@ -43,8 +44,14 @@ import {
     {
       name: "Customization",
       description:
-        "18 themes, Material You support, and multiple Google Fonts with live preview.",
+        "19 themes, Material You support, and multiple Google Fonts with live preview.",
       icon: AdjustmentsHorizontalIcon,
+    },
+    {
+      name: "Voice Notes",
+      description:
+        "Effortless recording with auto-save protection for uninterrupted voice capture.",
+      icon: MicIcon,
     },
     {
       name: "Data Portability",
@@ -58,6 +65,7 @@ import {
         "In‑app updater, admin tools, debugging utilities, and CMS access.",
       icon: WrenchScrewdriverIcon,
     },
+
   ];
   
   export default function Features() {
