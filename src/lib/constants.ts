@@ -1,7 +1,5 @@
 import { AppVersion } from "@/interfaces/version";
 
-
-//  Data for the website
 export const EXAMPLE_PATH = "MS Bridge";
 export const CMS_NAME = "MS Bridge";
 export const HOME_OG_IMAGE_URL =
@@ -12,6 +10,14 @@ export const Stable_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-stable.apk`;
 export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
+  {
+    version: "8.0.0",
+    buildNumber: 18,
+    releaseDate: "2025-09-14",
+    changelog:
+      "Version 8.0 is a major update with new features and improvements, including voice notes, privacy and security, be able to export or import your voice notes, share your notes using a secure link.",
+    downloadUrl: "/downloads/ms-bridge-8.0.0.apk",
+  },
   {
     version: "7.10.0",
     buildNumber: 17,
@@ -277,6 +283,43 @@ export const FEATURE_CATEGORIES: FeatureCategory[] = [
     ],
   },
   {
+    name: "Voice Notes",
+    features: [
+      {
+        title: "Effortless Recording",
+        description: "Streamlined interface with auto-save protection for uninterrupted voice capture.",
+      },
+      {
+        title: "Superior Audio Quality",
+        description: "Multiple quality profiles from simple to lossless audio recording options.",
+      },
+      {
+        title: "Rich Metadata",
+        description: "Comprehensive details including size, timestamps, and storage information.",
+      },
+      {
+        title: "Haptic Feedback",
+        description: "Enhanced tactile interactions that respond to your touch.",
+      },
+      {
+        title: "Secure Sharing",
+        description: "Share voice notes via secure links with Firebase and Dynamic Links integration.",
+      },
+      {
+        title: "Export & Download",
+        description: "Export voice notes in multiple supported formats for external use.",
+      },
+      {
+        title: "Privacy-First Design",
+        description: "Complete local control with options to disable cloud features entirely.",
+      },
+      {
+        title: "Open Source",
+        description: "Full codebase available on GitHub for complete transparency and customization.",
+      },
+    ],
+  },
+  {
     name: "Updates & Admin",
     features: [
       {
@@ -298,16 +341,16 @@ export const phoneSets = [
   {
     center: "/assets/mobile_layout/intro1.webp",
     left: "/assets/mobile_layout/intro2.webp",
-    right: "/assets/mobile_layout/intro3.webp",
+    right: "/assets/mobile_layout/intor3.webp",
   },
   {
     center: "/assets/mobile_layout/login.webp",
     left: "/assets/mobile_layout/create_account.webp",
-    right: "/assets/mobile_layout/readNote.webp",
+    right: "/assets/mobile_layout/readNotes.webp",
   },
   {
     center: "/assets/mobile_layout/askAi.webp",
     left: "/assets/mobile_layout/setting.webp",
-    right: "/assets/mobile_layout/search.webp",
+    right: "/assets/mobile_layout/searchNotes.webp",
   },
 ];
