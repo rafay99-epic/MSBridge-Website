@@ -1,8 +1,8 @@
 {
     "private": true,
     "name": "ms-bridge",
-    "version": "2.0.0",
-    "buildNumber": "2.0.0",
+    "version": "2.1.0",
+    "buildNumber": "2.1.0",
     "description": "MS Bridge is a note-taking app that allows you to take notes, create templates, and more.",
     "author": "MS Bridge",
     "license": "MIT",
