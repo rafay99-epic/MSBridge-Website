@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import Container from "@/app/_components/container";
 import { PostTitle } from "@/app/_components/post-title";
 import Link from "next/link";
@@ -18,7 +18,7 @@ function deltaToHtml(content: string) {
     }
     
     if (ops) {
-      // Use the quill-delta-to-html package
+      // Use the quill-delta-to-html packagexl
       const converter = new QuillDeltaToHtmlConverter(ops, {
         paragraphTag: 'p',
         encodeHtml: true,
@@ -110,18 +110,45 @@ export default function SharedNotePage({ params }: { params: Promise<{ shareId: 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [shareId, setShareId] = useState<string | null>(null);
+
+  // Memoized webUrl derived from shareId
+  const webUrl = useMemo(() => {
+    if (!shareId) return null;
+    return `https://msbridge.rafay99.com/s/${shareId}`;
+  }, [shareId]);
+
+  // Handlers for app navigation
+  const openInApp = useCallback(() => {
+    if (!webUrl) return;
+    
+    if (typeof navigator !== 'undefined' && navigator.userAgent.includes('android')) {
+      // Android intent URL with fallback
+      const intentUrl = `intent://s/${shareId}#Intent;scheme=https;package=com.syntaxlab.msbridge;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+      window.location.href = intentUrl;
+    } else {
+      // For non-Android, just navigate to web URL
+      window.location.href = webUrl;
+    }
+  }, [webUrl, shareId]);
+
+  const continueOnWeb = useCallback(() => {
+    if (!webUrl) return;
+    window.location.href = webUrl;
+  }, [webUrl]);
 
   useEffect(() => {
     async function loadNote() {
       try {
-        const { shareId } = await params;
-        if (!shareId) {
+        const { shareId: resolvedShareId } = await params;
+        setShareId(resolvedShareId);
+        if (!resolvedShareId) {
           setError('Invalid link.');
           setLoading(false);
           return;
         }
 
-        const response = await fetch(`/api/shared-notes/${shareId}`);
+        const response = await fetch(`/api/shared-notes/${resolvedShareId}`);
         if (!response.ok) {
           if (response.status === 404) {
             setError('This shared note does not exist or was disabled.');
@@ -188,6 +215,31 @@ export default function SharedNotePage({ params }: { params: Promise<{ shareId: 
             <p className="text-lg text-neutral-600 dark:text-slate-300 max-w-2xl mx-auto">
               View a note shared from MS Bridge App
             </p>
+            
+            {/* App Navigation Buttons */}
+            {shareId && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+                <button 
+                  onClick={openInApp}
+                  className="inline-flex items-center justify-center gap-3 rounded-xl px-6 py-3 bg-neutral-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium hover:bg-neutral-800 dark:hover:bg-slate-200 transition-all duration-200 shadow-sm hover:shadow-md"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  Open in App
+                </button>
+                
+                <button 
+                  onClick={continueOnWeb}
+                  className="inline-flex items-center justify-center gap-3 rounded-xl px-6 py-3 border-2 border-neutral-300 dark:border-slate-600 text-neutral-700 dark:text-slate-300 font-medium hover:bg-neutral-50 dark:hover:bg-slate-800 hover:border-neutral-400 dark:hover:border-slate-500 transition-all duration-200"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                  </svg>
+                  Continue on Web
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Note Content */}
