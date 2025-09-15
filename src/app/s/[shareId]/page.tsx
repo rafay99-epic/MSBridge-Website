@@ -119,18 +119,19 @@ export default function SharedNotePage({ params }: { params: Promise<{ shareId: 
   }, [shareId]);
 
   // Handlers for app navigation
-  const openInApp = useCallback(() => {
-    if (!webUrl) return;
-    
-    if (typeof navigator !== 'undefined' && navigator.userAgent.includes('android')) {
-      // Android intent URL with fallback
-      const intentUrl = `intent://s/${shareId}#Intent;scheme=https;package=com.syntaxlab.msbridge;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
-      window.location.href = intentUrl;
-    } else {
-      // For non-Android, just navigate to web URL
-      window.location.href = webUrl;
-    }
-  }, [webUrl, shareId]);
+const openInApp = useCallback(() => {
+  if (!shareId || !webUrl) return;
+  const ua = (typeof navigator !== 'undefined' ? navigator.userAgent : '').toLowerCase();
+
+  if (ua.includes('android')) {
+    const intent = `intent://s/${shareId}`
+      + `#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;`
+      + `package=com.syntaxlab.msbridge;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+    window.location.href = intent;
+    return;
+  }
+  window.location.href = webUrl;
+}, [shareId, webUrl]);
 
   const continueOnWeb = useCallback(() => {
     if (!webUrl) return;
