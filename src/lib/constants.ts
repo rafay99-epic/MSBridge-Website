@@ -11,6 +11,14 @@ export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
   {
+    version: "8.1.0",
+    buildNumber: 19,
+    releaseDate: "2025-09-26",
+    changelog:
+      "Version 8.1  is a big updating adding new Features, like reading mode with it's own complex setting for user making sure that reading each note is easy and enjoyable. Now with Voice Notes we have added Streak system so no matter which notes it is you are not bound to make only one type of note.",
+    downloadUrl: "/downloads/ms-bridge-8.1.0.apk",
+  },
+  {
     version: "8.0.0",
     buildNumber: 18,
     releaseDate: "2025-09-14",
