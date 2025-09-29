@@ -98,6 +98,73 @@ public                      # Static files (favicons, images)
 Deploy on any Next.js‑compatible host (Vercel recommended). Ensure `NEXT_PUBLIC_SITE_URL` is set in production.
 
 
+## Dynamic Links Service
+
+Replaces Firebase Dynamic Links (deprecated) with a custom branded short link system for shared notes and voice notes.
+
+### Environment Variables
+
+Add these to Vercel Project Settings → Environment Variables and your local `.env.local`:
+
+```bash
+# API Security
+MS_BRIDGE_API_KEY=your-secret-api-key
+
+# Site Configuration  
+NEXT_PUBLIC_SITE_URL=https://msbridge.rafay99.com
+
+# Firebase Configuration (Client SDK)
+FIREBASE_API_KEY=your-firebase-api-key
+FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+FIREBASE_APP_ID=your-app-id
+FIREBASE_MEASUREMENT_ID=your-measurement-id
+```
+
+### API Endpoints
+
+**POST `/api/shorten`** - Create short links
+- **Headers:** `x-api-key: $MS_BRIDGE_API_KEY`, `Content-Type: application/json`
+- **Body:** `{ "shareId": "uuid", "type": "note"|"voice", "originalUrl": "https://..." }`
+- **Response:** `{ "shortUrl": "https://msbridge.rafay99.com/r/abc123x", "shortCode": "abc123x" }`
+- **Idempotent:** Same `(shareId, type)` always returns the same short code
+
+**GET `/r/{code}`** - Redirect short links
+- **Behavior:** Looks up `short_links/{code}`, increments analytics, redirects to `/s/{shareId}` or `/voice/{shareId}`
+- **Analytics:** Tracks `clickCount` and `lastClicked` timestamps
+
+### Shared Content Display
+
+**GET `/s/{shareId}`** - Display shared notes
+- **API:** `/api/shared-notes/{shareId}` reads from Firestore `shared_notes/{shareId}`
+- **Requirements:** Document must have `viewOnly: true`
+
+**GET `/voice/{shareId}`** - Display shared voice notes  
+- **API:** `/api/voice-notes/{shareId}` reads from Firestore `shared_voice_notes/{shareId}`
+- **Requirements:** Document must have `viewOnly: true`
+
+### Firestore Collections
+
+```
+Firestore:
+├── shared_notes/{shareId}        # Public shared notes (viewOnly: true)
+├── shared_voice_notes/{shareId}  # Public shared voice notes (viewOnly: true)  
+├── short_links/{code}            # Short link mappings with analytics
+└── short_links_index/{type_shareId} # Index for idempotent link creation
+```
+
+
+### Usage Flow
+
+1. **Flutter app** creates shared note/voice note in Firestore
+2. **Flutter app** calls POST `/api/shorten` to get branded short URL
+3. **User shares** the short URL (e.g., `https://msbridge.rafay99.com/r/abc123x`)
+4. **Recipient clicks** → redirects to `/s/{shareId}` or `/voice/{shareId}`
+5. **Web page** displays the shared content with analytics tracking
+
+
 ## Contact 
 If you have any question then free will to react out at rafay99.com/contact-me 
 

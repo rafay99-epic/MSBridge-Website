@@ -1,8 +1,8 @@
 {
     "private": true,
     "name": "ms-bridge",
-    "version": "2.1.0",
-    "buildNumber": "2.1.0",
+    "version": "2.2.0",
+    "buildNumber": "2.2.0",
     "description": "MS Bridge is a note-taking app that allows you to take notes, create templates, and more.",
     "author": "MS Bridge",
     "license": "MIT",
@@ -23,6 +23,7 @@
         "babel-plugin-react-compiler": "^19.1.0-rc.2",
         "classnames": "^2.5.1",
         "date-fns": "^3.6.0",
+        "firebase-admin": "^12.6.0",
         "firebase": "^12.2.1",
         "gray-matter": "^4.0.3",
         "lucide-react": "^0.541.0",
