@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant F as Flutter App
+    participant N as Next.js Server
+    participant FS as Firestore
+    participant U as User Browser
+    participant P as Public Page
+
+    F->>N: POST /api/shorten {shareId, type, originalUrl} (+x-api-key)
+    N->>FS: Check short_links_index[type_shareId]
+    alt not exists
+        N->>FS: Create short_links{code} + index
+    end
+    N-->>F: { shortUrl, shortCode }
+
+    F-->>U: Display shortUrl
+
+    U->>N: GET /r/{code}
+    N->>FS: Lookup short_links/{code}
+    N->>FS: Increment clickCount (async)
+    N-->>U: 302 Redirect → /s/{shareId} or /voice/{shareId}
+
+    U->>P: Visit redirected page
+    P->>N: GET /api/shared-notes/{shareId} | /api/voice-notes/{shareId}
+    N->>FS: Fetch shared doc
+    N-->>P: 200 JSON (content)
+    P-->>U: Render read-only view

@@ -11,6 +11,13 @@ export const beta_MSBridge_URL = `${SITE_URL}/downloads/ms-bridge-beta.apk`;
 
 export const versions: AppVersion[] = [
   {
+    version: "8.2.0",
+    buildNumber: 20,
+    releaseDate: "2025-10-01",
+    changelog: "Version 8.2 focuses on stability and reliability. Updates include: replacing Firebase Dynamic Links with custom secure short links, Hive data migration service to prevent data loss, modernized Flutter components, integrated Bugfender logging for error tracking, context-safe widgets to avoid crashes, and expanded automated test coverage for smoother, more reliable performance.",
+    downloadUrl: "/downloads/ms-bridge-8.2.0.apk",
+  },
+  {
     version: "8.1.0",
     buildNumber: 19,
     releaseDate: "2025-09-26",
