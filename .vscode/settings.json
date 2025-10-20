@@ -1,0 +1,12 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    ["@apply\\s+([^;]+)", "([^;]+)"]
+  ],
+  "editor.formatOnSave": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
