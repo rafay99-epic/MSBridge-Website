@@ -14,17 +14,28 @@ export default function MermaidDiagram({ children, 'data-mermaid': dataMermaid }
   useEffect(() => {
     if (!ref.current) return;
 
-    // Initialize mermaid
     mermaid.initialize({
       startOnLoad: false,
       theme: 'default',
-      securityLevel: 'loose',
+      securityLevel: 'strict',
     });
 
     const mermaidCode = dataMermaid ? decodeURIComponent(dataMermaid) : children;
     
     if (mermaidCode) {
-      const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+      const generateId = () => {
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return `mermaid-${crypto.randomUUID()}`;
+        }
+        if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+          const array = new Uint8Array(8);
+          crypto.getRandomValues(array);
+          return `mermaid-${Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('')}`;
+        }
+        return `mermaid-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+      };
+      
+      const id = generateId();
       
       mermaid.render(id, mermaidCode).then(({ svg }) => {
         if (ref.current) {
@@ -33,7 +44,14 @@ export default function MermaidDiagram({ children, 'data-mermaid': dataMermaid }
       }).catch((error) => {
         console.error('Error rendering Mermaid diagram:', error);
         if (ref.current) {
-          ref.current.innerHTML = `<pre><code>${mermaidCode}</code></pre>`;
+          ref.current.innerHTML = '';
+          
+          const pre = document.createElement('pre');
+          const code = document.createElement('code');
+          
+          code.textContent = mermaidCode;
+          pre.appendChild(code);
+          ref.current.appendChild(pre);
         }
       });
     }
