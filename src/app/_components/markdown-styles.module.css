@@ -1,3 +1,102 @@
+/* .markdown {
+    @apply text-lg leading-relaxed;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol,
+.markdown blockquote {
+    @apply my-6;
+}
+
+.markdown h2 {
+    @apply text-3xl mt-12 mb-4 leading-snug;
+}
+
+.markdown h3 {
+    @apply text-2xl mt-8 mb-4 leading-snug;
+}
+
+.markdown h1 {
+    @apply text-4xl md:text-5xl mt-14 mb-6 font-bold leading-tight;
+}
+
+.markdown h4 {
+    @apply text-xl mt-6 mb-3 font-semibold;
+}
+
+.markdown h5 {
+    @apply text-lg mt-4 mb-2 font-semibold;
+}
+
+.markdown h6 {
+    @apply text-base mt-3 mb-2 font-semibold uppercase tracking-wide text-neutral-600 dark:text-slate-300;
+}
+
+
+.markdown a {
+    @apply underline decoration-neutral-400 dark:decoration-slate-500 underline-offset-4 hover:decoration-current;
+}
+
+.markdown img {
+    @apply max-w-full h-auto rounded-xl my-6 shadow-md;
+}
+
+
+.markdown hr {
+    @apply my-10 border-neutral-200 dark:border-slate-700;
+}
+
+.markdown ul {
+    @apply list-disc list-outside pl-6 space-y-2;
+}
+
+.markdown ol {
+    @apply list-decimal list-outside pl-6 space-y-2;
+}
+
+.markdown li>ul,
+.markdown li>ol {
+    @apply mt-2;
+}
+
+.markdown li {
+    @apply my-1;
+}
+
+.markdown blockquote {
+    @apply border-l-4 border-neutral-200 dark:border-slate-700 pl-4 italic text-neutral-700 dark:text-slate-300 bg-neutral-50 dark:bg-slate-800/30 rounded-r-xl py-2;
+}
+
+
+.markdown :not(pre)>code {
+    @apply bg-neutral-100 dark:bg-slate-800 text-neutral-900 dark:text-slate-100 px-1.5 py-0.5 rounded-md font-mono text-sm;
+}
+
+.markdown pre {
+    @apply bg-neutral-900 text-neutral-100 dark:bg-slate-900/80 dark:text-slate-100 p-4 rounded-xl overflow-x-auto shadow-inner ring-1 ring-black/10 dark:ring-white/10 my-6;
+}
+
+.markdown pre code {
+    @apply bg-transparent p-0 text-inherit font-mono text-sm;
+}
+
+
+.markdown table {
+    @apply w-full text-left border-collapse my-6 overflow-hidden rounded-lg;
+}
+
+.markdown thead th {
+    @apply bg-neutral-50 dark:bg-slate-800/60 text-neutral-700 dark:text-slate-200 font-semibold;
+}
+
+.markdown th,
+.markdown td {
+    @apply border-b border-neutral-200 dark:border-slate-700 px-4 py-2 align-top;
+} */
+
+
+
 .markdown {
     @apply text-lg leading-relaxed;
 }
@@ -97,4 +196,129 @@
 .markdown th,
 .markdown td {
     @apply border-b border-neutral-200 dark:border-slate-700 px-4 py-2 align-top;
+}
+
+/* Single line code blocks */
+.markdown .code-single {
+    @apply bg-neutral-100 dark:bg-slate-800 text-neutral-900 dark:text-slate-100 px-2 py-1 rounded font-mono text-sm border border-neutral-200 dark:border-slate-600;
+    display: inline-block;
+    margin: 0 2px;
+}
+
+/* Code blocks with syntax highlighting support */
+.markdown pre[class*="language-"] {
+    @apply bg-neutral-900 dark:bg-slate-900 text-neutral-100 dark:text-slate-100;
+    position: relative;
+}
+
+.markdown pre[class*="language-"]::before {
+    content: attr(class);
+    @apply absolute top-2 right-2 text-xs text-neutral-400 dark:text-slate-500 bg-neutral-800 dark:bg-slate-800 px-2 py-1 rounded;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Barcode styling */
+.markdown .barcode {
+    @apply bg-white dark:bg-slate-800 p-4 rounded-lg border border-neutral-200 dark:border-slate-600 my-4;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.dark .markdown .barcode {
+    color: #fff;
+    background: #1e293b;
+    border-color: #475569;
+}
+
+/* Diagram containers */
+.markdown .diagram {
+    @apply bg-white dark:bg-slate-800 border border-neutral-200 dark:border-slate-600 rounded-lg p-4 my-6;
+    overflow-x: auto;
+}
+
+.markdown .diagram svg {
+    @apply max-w-full h-auto;
+    background: transparent;
+}
+
+/* Dark mode diagram adjustments */
+.dark .markdown .diagram {
+    background: #1e293b;
+    border-color: #475569;
+}
+
+.dark .markdown .diagram svg {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* Flowchart specific styling */
+.markdown .flowchart {
+    @apply bg-white dark:bg-slate-800 p-4 rounded-lg border border-neutral-200 dark:border-slate-600 my-4;
+}
+
+.dark .markdown .flowchart {
+    background: #1e293b;
+    border-color: #475569;
+}
+
+/* Sequence diagram styling */
+.markdown .sequence {
+    @apply bg-white dark:bg-slate-800 p-4 rounded-lg border border-neutral-200 dark:border-slate-600 my-4;
+}
+
+.dark .markdown .sequence {
+    background: #1e293b;
+    border-color: #475569;
+}
+
+/* Mermaid diagrams - Enhanced */
+.markdown .mermaid {
+    @apply my-8 text-center bg-white dark:bg-slate-800 p-4 rounded-lg border border-neutral-200 dark:border-slate-600;
+}
+
+.markdown .mermaid svg {
+    @apply max-w-full h-auto;
+    background: transparent;
+}
+
+/* Dark mode Mermaid adjustments */
+.dark .markdown .mermaid {
+    background: #1e293b;
+    border-color: #475569;
+}
+
+.dark .markdown .mermaid svg {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* Code block copy button (if you want to add one later) */
+.markdown .code-copy-btn {
+    @apply absolute top-2 right-2 bg-neutral-700 dark:bg-slate-600 text-white dark:text-slate-100 px-2 py-1 rounded text-xs hover:bg-neutral-600 dark:hover:bg-slate-500;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.markdown pre:hover .code-copy-btn {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .markdown pre {
+        @apply text-xs p-3;
+    }
+    
+    .markdown .barcode {
+        @apply text-sm p-2;
+    }
+    
+    .markdown .diagram,
+    .markdown .mermaid {
+        @apply p-2;
+    }
 }
