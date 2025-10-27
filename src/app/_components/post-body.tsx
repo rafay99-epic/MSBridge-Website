@@ -1,3 +1,5 @@
+"use client";
+
 import markdownStyles from "./markdown-styles.module.css";
 import MermaidDiagram from "./mermaid-diagram";
 
